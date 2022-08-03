@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./service.base.js"></script> <!--스크립트 불러오기-->
+  </head>
+  <!-- <body>
+      <input id="id" type="text" value=""> 
+      <input type = "button" value="submit" onclick= "list1();">
+      <input type = "file" id="_file" class="medium-btn" style="width:50%;">
+      <input type = "button" value="Upload" class="medium-btn" onclick="upload();">
+	  <div id="result" style="color:red;"></div>
+	
+	  
+  </body>  -->
+    <script> 
+	var list1 = function() {
+	    var data = new FormData();
+		//  insert html에서 <form></form>을 줄이기 위해서
+		data.append("func", "list");
+		data.append("id", document.getElementById('id').value);
+		POST("s01.php", data, function(resp) {
+            // POST는 service.base.js에서 지정해줬다
+            document.getElementById('result').innerHTML=""
+	
+            for (i=0; i<resp.data.length; i++) {
+		      document.getElementById('result').innerHTML +=  "<a href="+resp.data[i]+" donwload>" + resp.data[i] + "</a>"
+              +"<input type='button' value='delete' onclick='remove(\""+resp.data[i] + "\")'><br>\n";
+            }
+		  })
+    }
+
+    var remove = function(file){
+        var data = new FormData();
+        data.append("func","delete")
+        data.append("file", file)
+        POST("s01.php", data, function(resp){
+            alert(resp.data);
+        
+
+        })
+    }
+
+    var upload = function () {
+	    var data = new FormData();
+		data.append("func", "upload");
+		data.append("file", document.getElementById("_file").files[0]);
+        zz=document.getElementById("_file").files
+        // _file 을 다른 태그에서 찾아오라고 document.getElementById
+		POST("s01.php", data, function(resp) {
+            console.log("file upload")
+            alert(document.getElementById("_file").files[0].name)
+		  }); 
+	}
+	</script>
+</html>
