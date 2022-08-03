@@ -51,7 +51,7 @@ padding = -1
 top = padding
 bottom = height-padding
 # Move left to right keeping track of the current x position for drawing shapes.
-x = 1
+x = 0
 
 
 # Load default font.
